@@ -1,0 +1,8 @@
+# Ignore folders
+pickles/
+.vscode/
+.idea/
+__pycache__/
+
+# Ignore .csv files
+*.csv
