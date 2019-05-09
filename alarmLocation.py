@@ -1,4 +1,5 @@
 import pandas as pd
+import gridGraph
 
 
 def getLocation(alarm):
@@ -18,6 +19,22 @@ def getLocation(alarm):
         if lastElem in locations:
             return splitTag[-1]
     return None
+
+def getComponent(alarm, stations, location=None):
+    alarmTag = alarm.get('Tagname')
+    component = None
+
+    if location is None:
+        location = getLocation(alarm)
+
+    if location is not None: # LOCATION CAN STILL BE NONE..
+        stationSwitches = stations[location]
+        if stationSwitches is not None:
+            for switch in stationSwitches:
+                if switch in alarmTag:
+                    component = switch
+    
+    return component
 
 """
 df_alarms_type = pd.read_pickle('./pickles/df_alarms_type_v2')

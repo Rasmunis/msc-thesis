@@ -17,7 +17,7 @@ def caseMaker(df, timeDiff, sizeLimit):
         rowLoc = row['Location']
 
         tempCase.append([rowTime, rowType, rowLoc])
-        if (df_alarms_typeloc.iloc[actualIndex + 1]['Date_Time'] - rowTime) > pd.Timedelta(timeDiff):
+        if (df.iloc[actualIndex + 1]['Date_Time'] - rowTime) > pd.Timedelta(timeDiff):
             if len(tempCase) >= sizeLimit:
                 highFreqCases.append(tempCase)
             tempCase = []

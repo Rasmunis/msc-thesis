@@ -48,6 +48,18 @@ def getType(alarm):
 
     return 'OTHER'
 
+def getDirection(alarm):
+    dir = None
+    desc = alarm['Description']
+    
+    if desc is not None:
+        if 'FOROVER' in desc:
+            dir = 'FOROVER'
+        if 'BAKOVER' in desc:
+            dir = 'BAKOVER'
+    
+    return dir
+    
 """
 df_alarms_filtered = pd.read_pickle('./pickles/df_alarms_filtered_combined')
 df_alarms_filtered['Type'] = df_alarms_filtered.apply(lambda alarm: getType(alarm), axis=1)
