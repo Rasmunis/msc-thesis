@@ -50,27 +50,10 @@ def printPretty(caseList):
         print('===============================')
         print('')
 
-""" store high freq cases
-highFreq = caseMaker(df_alarms_typeloc, '3s', 20)
 
-with open('./pickles/highFreqCases_v2', 'wb') as hfc:
-    pickle.dump(highFreq, hfc)
-"""
-
-""" get
-with open('./pickles/highFreqCases', 'rb') as hfc:
-    highFreqCases = pickle.load(hfc)
-"""
-
-""" pickle dump
-with open('caseBase', 'wb') as cb:
-    pickle.dump(caseBase, cb)
-"""
-
-"""
+""" REFORMAT ALARM LIST INTO CASE-FORMAT
 with open('./pickles/df_alarms_cleaned', 'rb') as dac:
     df_alarms_cleaned = pickle.load(dac)
-
 
 alarms_combined_case_format = caseFormat(df_alarms_cleaned)
 
@@ -78,15 +61,15 @@ with open('./pickles/alarms_combined_case_format', 'wb') as accf:
     pickle.dump(alarms_combined_case_format, accf)
 """
 
-
+""" ADD NEW CASE
 with open('./pickles/alarms_combined_case_format', 'rb') as hfc:
     alarmList = pickle.load(hfc)
 
 with open('./pickles/caseBase', 'rb') as cb:
     caseBase = pickle.load(cb)
 
-caseBase.append(extractCase("2016-06-01 20:11:30", "2016-06-01 20:12:12", alarmList))
+caseBase.append(extractCase("2016-05-27 21:35:00", "2016-05-27 21:36:50", alarmList))
 
 with open('./pickles/caseBase', 'wb') as cb:
     pickle.dump(caseBase, cb)
-
+"""

@@ -8,6 +8,8 @@ def similarityOverTime(alarmList, caseBase, simFunc, stepSize):
     timeAxis = []
     similarityScores = [[] for n in range(len(caseBase))]
     for i in range(0, len(alarmList), stepSize):
+        if (i % 1000 == 0):
+            print("ALARM NO.", i)
         startTime = alarmList[i][0]
         timeAxis.append(startTime)
         for j in range(len(caseBase)):
@@ -59,3 +61,20 @@ with open('./pickles/FOLDERNAMEHERE/timeAxis', 'rb') as ta:
 
 plotter(ta, ss, start="2018-10-30", end="2018-11-30")
 """
+
+""" SIMILARITY COMPARISON OF CASES IN CASEBASE
+with open('./pickles/caseBase', 'rb') as cb:
+    caseBase = pickle.load(cb)
+
+for c1 in caseBase:
+    for c2 in caseBase:
+        print(c1[0][0].date(), " --- ", c2[0][0].date(), " == ", caseRep.editDist(c1, c2), "\n")
+    print("\n\n\n")
+"""
+
+with open('./pickles/editDistanceOverTimeData/similarityScores', 'rb') as ss:
+    ss = pickle.load(ss)
+with open('./pickles/editDistanceOverTimeData/timeAxis', 'rb') as ta:
+    ta = pickle.load(ta)
+
+plotter(ta, ss, start="2017-12-01", end="2017-12-30")
