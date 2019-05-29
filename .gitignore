@@ -6,3 +6,6 @@ __pycache__/
 
 # Ignore .csv files
 *.csv
+
+# Ignore grid-info
+gridGraph.py
