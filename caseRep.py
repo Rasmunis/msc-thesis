@@ -23,7 +23,8 @@ alarmTypes = [
     'HUMAN', 'JORD', 'DIFFUT', 'DIFFAV', 'DIFFPÅ', 'DIFFST', 'DIFFNO', 'SPGHI', 'SPGHIHI', 'SPGLO',
     'SPGLOLO', 'SPGOK', 'STRHI', 'STRHIHI', 'STRLO', 'STRLOLO', 'STROK', 'MVARHI', 'MVARHIHI',
     'MVARLO', 'MVARLOLO', 'MVAROK', 'BRTUTE', 'BRTINNE', 'BRTMELLOM', 'OVERSUT', 'OVERSAV',
-    'OVERSPÅ', 'OVERSST', 'OVERSNO', 'DISTUT', 'DISTAV', 'DISTPÅ', 'DISTST', 'DISTNO', 'OTHER'
+    'OVERSPÅ', 'OVERSST', 'OVERSNO', 'DISTUT', 'DISTAV', 'DISTPÅ', 'DISTST', 'DISTNO',
+    'OVERV', 'SSK', 'LAV', 'DIFFVA', 'OMFORMER', 'OTHER'
 ]
 
 def jaccardSimilarity(c1, c2):
@@ -61,7 +62,7 @@ def editDist(c1, c2):
                            r[i, j-1] + w.get(f, 1),
                            r[i-1, j-1] + k[i][j]
                            ])
-    return r[-1][-1]
+    return r[-1][-1]/m
 
 
 """ CASE BASE AND ALARMS WITH JACCARD
@@ -96,6 +97,3 @@ caseEx2 = [
     [pd.Timestamp('2017-12-28 05:40:43.820000'), 'DISTPÅ'], [pd.Timestamp('2017-12-28 05:40:43.820000'), 'DISTPÅ']]
 
 caseEx3 = []
-
-print(editDist(caseEx1, caseEx3))
-print(editDist(caseEx1, caseEx2))

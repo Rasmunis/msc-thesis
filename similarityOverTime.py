@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.dates import date2num
 import pickle
 import caseRep
 
@@ -31,8 +32,14 @@ def plotter(x, yList, start, end):
     startI = next(i for i, v in enumerate(x) if v > pd.Timestamp(start))
     endI = next(i for i, v in enumerate(x) if v > pd.Timestamp(end))
 
-    for y in yList:
-        plt.plot(x[startI:endI], y[startI:endI], marker='+', linestyle='')
+    labels = ['06-12-2017', '28-12-2017', '08-11-2018', '01-06-2016', '27-05-2016']
+    #x = [n.time() for n in x]
+    fig, ax = plt.subplots()
+
+    for i, y in enumerate(yList[1:2]):
+        ax.plot(x[startI:endI], y[startI:endI], label=labels[i])
+    plt.legend()
+    fig.autofmt_xdate()
     plt.show()
 
 
@@ -72,9 +79,16 @@ for c1 in caseBase:
     print("\n\n\n")
 """
 
-with open('./pickles/editDistanceOverTimeData/similarityScores', 'rb') as ss:
+with open('./pickles/jaccardOverTimeData/similarityScores', 'rb') as ss:
     ss = pickle.load(ss)
-with open('./pickles/editDistanceOverTimeData/timeAxis', 'rb') as ta:
+with open('./pickles/jaccardOverTimeData/timeAxis', 'rb') as ta:
     ta = pickle.load(ta)
 
-plotter(ta, ss, start="2017-12-01", end="2017-12-30")
+"""
+for i in range(len(ss)):
+    avg = sum(ss[i])/len(ss[i])
+    for j in range(len(ss[i])):
+        ss[i][j] = ss[i][j]/avg
+"""
+
+plotter(ta, ss, start="2017-11-20 00:00:00", end="2018-12-10 23:59:00")

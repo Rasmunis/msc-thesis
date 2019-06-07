@@ -73,3 +73,16 @@ caseBase.append(extractCase("2016-05-27 21:35:00", "2016-05-27 21:36:50", alarmL
 with open('./pickles/caseBase', 'wb') as cb:
     pickle.dump(caseBase, cb)
 """
+
+with open('./pickles/df_alarms_cleaned', 'rb') as dac:
+    df_alarms_cleaned = pickle.load(dac)
+
+with open('./pickles/alarms_combined_case_format', 'rb') as accf:
+    alarms_combined_case_format = pickle.load(accf)
+
+print(df_alarms_cleaned.iloc[7900])
+print(alarms_combined_case_format[7900:7905])
+highFreqCases = caseMaker(df_alarms_cleaned, '3s', 30)
+
+with open('./pickles/highFreqCases', 'wb') as hfc:
+    pickle.dump(highFreqCases, hfc)
