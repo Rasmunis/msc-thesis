@@ -29,18 +29,32 @@ with open('pickles/highFreqCases', 'rb') as hfc:
 
 alarmFloods = alarmFloods[:10] + alarmFloods[45:]
 
-print("Maintenenace start", alarmFloods[113], "\n\n\n")
-print("Maintenance stop", alarmFloods[128])
+"""
+print("Maintenenace start", alarmFloods[69], "\n\n\n")
+print("Maintenance mid", alarmFloods[71], "\n\n\n")
+print("Maintenance stop", alarmFloods[75], "\n\n\n")
+"""
 
-print("CASEBASE 1", caseBase[1])
-print("JACCSIM C0 AND 113", jaccardSimilarity(caseBase[0], alarmFloods[113]), "\n\n")
-print("JACCSIM C1 AND 113", jaccardSimilarity(caseBase[1], alarmFloods[113]), "\n\n")
-print("JACCSIM C0 AND 128", jaccardSimilarity(caseBase[0], alarmFloods[128]), "\n\n")
-print("JACCSIM C1 AND 128", jaccardSimilarity(caseBase[1], alarmFloods[128]), "\n\n")
+maintenanceTimestamps = [
+    ('2018-07-26 10:18:00', '2018-08-08 14:30:00'),
+    ('2018-10-10 23:35:00', '2018-10-11 07:25:00'),
+    ('2018-02-15 13:49:00', '2018-02-15 13:58:00'),
+    ('2017-01-10 11:37:00', '2017-01-10 12:37:00'),
+    ('2018-03-21 11:22:00', '2018-04-23 15:32:00')
+]
 
-for i in range(len(caseBase[3])):
-    if caseBase[3][i][1] not in alarmTypes:
-        print(caseBase[3][i][1])
-#simMatrix = similarityMatrix(caseBase, alarmFloods, jaccardSimilarity)
-#print(simMatrix)
-#matrixPlotter(simMatrix)
+caseWeights = [
+    {'important': [[pd.Timestamp('2018-11-08 18:26:35.110000'), 'BRTUTE', 'KLÆBU'], [pd.Timestamp('2018-11-08 18:26:36.270000'), 'BRTUTE', 'OSLOVEIE']]}
+]
+
+""" PRINT ALARMS THAT HAVE OTHER-TYPE
+for i, case in enumerate(caseBase):
+    for j, alarm in enumerate(case):
+        if alarm[1] == "OTHER":
+            print(alarm)
+    print("\n\n\n")
+"""
+
+
+simMatrix = similarityMatrix(caseBase, alarmFloods, editDist)
+matrixPlotter(simMatrix)

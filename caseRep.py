@@ -24,7 +24,8 @@ alarmTypes = [
     'SPGLOLO', 'SPGOK', 'STRHI', 'STRHIHI', 'STRLO', 'STRLOLO', 'STROK', 'MVARHI', 'MVARHIHI',
     'MVARLO', 'MVARLOLO', 'MVAROK', 'BRTUTE', 'BRTINNE', 'BRTMELLOM', 'OVERSUT', 'OVERSAV',
     'OVERSPÅ', 'OVERSST', 'OVERSNO', 'DISTUT', 'DISTAV', 'DISTPÅ', 'DISTST', 'DISTNO',
-    'OVERV', 'SSK', 'LAV', 'DIFFVA', 'OMFORMER', 'OTHER'
+    'OVERV', 'SSK', 'LAV', 'DIFFVA', 'OMFORMER', 'SIKR', 'MOTORSPENNING', 'SPENNTR',
+    'AUTO/HAND', 'SKILLEBR', 'DISDIF', 'EFFBRY', 'LIKERETTER', 'NODLYS', 'OTHER'
 ]
 
 def jaccardSimilarity(c1, c2):
@@ -33,6 +34,8 @@ def jaccardSimilarity(c1, c2):
 def euclidianDist(c1, c2):
     return np.linalg.norm(np.array(alarmTypeProportion(c1, alarmTypes)) - np.array(alarmTypeProportion(c2, alarmTypes)))
 
+def euclidianDistZeroToOne(c1, c2):
+    return np.linalg.norm(np.sqrt((np.array(alarmTypeProportion(c1, alarmTypes)) - np.array(alarmTypeProportion(c2, alarmTypes)))**2))
 
 def editDist(c1, c2):
     w = {}

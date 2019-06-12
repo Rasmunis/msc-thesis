@@ -61,19 +61,32 @@ with open('./pickles/alarms_combined_case_format', 'wb') as accf:
     pickle.dump(alarms_combined_case_format, accf)
 """
 
-""" ADD NEW CASE
+""" UPDATE CASE-BASE
+
+caseTimestamps = [
+    ('2018-11-08 18:26:33', '2018-11-08 18:26:39'),
+    ('2017-12-28 05:24:39', '2017-12-28 05:24:45'),
+    ('2017-12-06 04:52:55', '2017-12-06 04:53:02'),
+    ('2016-06-01 20:11:33', '2016-06-01 20:12:11'),
+    ('2016-05-27 21:36:35', '2016-05-27 21:36:49')
+]
+
 with open('./pickles/alarms_combined_case_format', 'rb') as hfc:
     alarmList = pickle.load(hfc)
 
 with open('./pickles/caseBase', 'rb') as cb:
     caseBase = pickle.load(cb)
 
-caseBase.append(extractCase("2016-05-27 21:35:00", "2016-05-27 21:36:50", alarmList))
+caseBase = []
+
+for case in caseTimestamps:
+    caseBase.append(extractCase(case[0], case[1], alarmList))
 
 with open('./pickles/caseBase', 'wb') as cb:
     pickle.dump(caseBase, cb)
 """
 
+""" Find and save alarm-floods
 with open('./pickles/df_alarms_cleaned', 'rb') as dac:
     df_alarms_cleaned = pickle.load(dac)
 
@@ -86,3 +99,11 @@ highFreqCases = caseMaker(df_alarms_cleaned, '3s', 30)
 
 with open('./pickles/highFreqCases', 'wb') as hfc:
     pickle.dump(highFreqCases, hfc)
+"""
+
+
+with open('./pickles/caseBase', 'rb') as cb:
+    caseBase = pickle.load(cb)
+
+for alarm in caseBase[-1]:
+    print(alarm)

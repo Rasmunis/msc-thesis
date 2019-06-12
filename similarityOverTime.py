@@ -32,11 +32,11 @@ def plotter(x, yList, start, end):
     startI = next(i for i, v in enumerate(x) if v > pd.Timestamp(start))
     endI = next(i for i, v in enumerate(x) if v > pd.Timestamp(end))
 
-    labels = ['06-12-2017', '28-12-2017', '08-11-2018', '01-06-2016', '27-05-2016']
+    labels = ['08-11-2018', '28-12-2017', '06-12-2017', '01-06-2016', '27-05-2016']
     #x = [n.time() for n in x]
     fig, ax = plt.subplots()
 
-    for i, y in enumerate(yList[1:2]):
+    for i, y in enumerate(yList):
         ax.plot(x[startI:endI], y[startI:endI], label=labels[i])
     plt.legend()
     fig.autofmt_xdate()
@@ -79,16 +79,30 @@ for c1 in caseBase:
     print("\n\n\n")
 """
 
-with open('./pickles/jaccardOverTimeData/similarityScores', 'rb') as ss:
-    ss = pickle.load(ss)
-with open('./pickles/jaccardOverTimeData/timeAxis', 'rb') as ta:
-    ta = pickle.load(ta)
-
-"""
+""" NORMALIZING EDIT DISTANCE
 for i in range(len(ss)):
     avg = sum(ss[i])/len(ss[i])
     for j in range(len(ss[i])):
         ss[i][j] = ss[i][j]/avg
 """
 
-plotter(ta, ss, start="2017-11-20 00:00:00", end="2018-12-10 23:59:00")
+""" CHECKING MATCHES FOR A CERTAIN SIM-VALUE
+for i in range(len(ss[-1])):
+    if ss[-1][i] < 0.25:
+        print(ta[i])
+"""
+
+""" NORMALIZE SIMILARITY SCORES
+for i in range(len(ss)):
+    minSS = min(ss[i])
+    maxSS = max(ss[i])
+    for j, s in enumerate(ss[i]):
+        ss[i][j] = ( ss[i][j] - minSS ) / ( maxSS - minSS )
+"""
+
+with open('./pickles/euclidianOverTimeData/similarityScores', 'rb') as ss:
+    ss = pickle.load(ss)
+with open('./pickles/euclidianOverTimeData/timeAxis', 'rb') as ta:
+    ta = pickle.load(ta)
+
+plotter(ta, ss, start=ta[0], end=ta[-2])

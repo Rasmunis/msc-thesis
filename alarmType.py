@@ -1,12 +1,16 @@
 import pandas as pd
 import pickle
+from difflib import ndiff
 
 def getType(alarm):
     types = ['JORD', '::', 'SPENNREG', 'SPOLE', 'KJOLEVIFTER',
              'KORTSL', 'SAMB', 'LAV', '_JF', 'SSK', 'OMFORMER',
              'MOTORSPENNING', '_AC', 'BRANN', 'ENDESTILL',
              'SYNK', 'OVERV', 'SAMLEALARM', 'SPRINK', 'SIKR',
-             'HJELPEKABEL', 'GASS', 'OLJE', 'UBALANSE', '_BR', 'PROT', 'TEMP', 'TRINNKOBLER', 'SOMMER']
+             'HJELPEKABEL', 'GASS', 'OLJE', 'UBALANSE', '_BR',
+             'PROT', 'TEMP', 'TRINNKOBLER', 'SOMMER', 'SPENNTR',
+             'AUTO/HAND', 'SKILLEBR', 'DISDIF', 'EFFBRY', 'LIKERETTER',
+             'NODLYS']
 
     unitTranslator = {
         'AV': 'NORMAL',
@@ -39,7 +43,7 @@ def getType(alarm):
         try:
             if ptype in tagname and value is not None:
                 if ptype == 'OVER1': ptype = 'OVERS'
-                value = unitTranslator.get(value, value)
+                value = unitTranslator.get(value.strip(), value)
                 return ptype + value[:2]
         except:
             print("WAHAAT", ptype, " - - - ", value)

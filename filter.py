@@ -2,7 +2,7 @@ import pandas as pd
 
 
 def filterAlarm(alarm):
-    noise = ['_SAMB', '_RTU', 'BELL', '_012', '_220V']
+    noise = ['_SAMB', '_RTU', 'BELL', '_012', '_220V', '_110V', '_230V', '_24V']
     tagname = alarm['Tagname']
 
     for n in noise:
