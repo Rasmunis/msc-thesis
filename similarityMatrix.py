@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import pickle
 import pandas as pd
 import numpy as np
-from caseRep import editDist, euclidianDist, jaccardSimilarity, alarmTypes
+from caseRep import editDist, euclidianDist, jaccardSimilarity, alarmTypes, euclidianDistScalar
 
 def similarityMatrix(floodSet1, floodSet2, simMeasure):
     simMatrix = []
@@ -16,7 +16,11 @@ def similarityMatrix(floodSet1, floodSet2, simMeasure):
 
 def matrixPlotter(simMatrix):
     fig, ax = plt.subplots()
-    ax.matshow(simMatrix, cmap=plt.cm.Blues)
+    ax.matshow(simMatrix, cmap=plt.cm.Blues_r)
+    for i in range(len(simMatrix)):
+        for j in range(len(simMatrix[0])):
+            c = round(simMatrix[i][j], 3)
+            ax.text(j, i, str(c), va='center', ha='center')
     plt.show()
 
 
@@ -55,6 +59,5 @@ for i, case in enumerate(caseBase):
     print("\n\n\n")
 """
 
-
-simMatrix = similarityMatrix(caseBase, alarmFloods, editDist)
+simMatrix = similarityMatrix(caseBase, caseBase, editDist)
 matrixPlotter(simMatrix)

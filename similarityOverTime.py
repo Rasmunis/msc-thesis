@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 from matplotlib.dates import date2num
 import pickle
 import caseRep
+from scipy import stats
+import numpy as np
 
 
 def similarityOverTime(alarmList, caseBase, simFunc, stepSize):
@@ -11,6 +13,7 @@ def similarityOverTime(alarmList, caseBase, simFunc, stepSize):
     for i in range(0, len(alarmList), stepSize):
         if (i % 1000 == 0):
             print("ALARM NO.", i)
+            print(alarmList[i][0], "\n")
         startTime = alarmList[i][0]
         timeAxis.append(startTime)
         for j in range(len(caseBase)):
@@ -92,7 +95,7 @@ for i in range(len(ss[-1])):
         print(ta[i])
 """
 
-""" NORMALIZE SIMILARITY SCORES
+""" MAX MIN NORMALIZE SIMILARITY SCORES
 for i in range(len(ss)):
     minSS = min(ss[i])
     maxSS = max(ss[i])
@@ -100,9 +103,17 @@ for i in range(len(ss)):
         ss[i][j] = ( ss[i][j] - minSS ) / ( maxSS - minSS )
 """
 
-with open('./pickles/euclidianOverTimeData/similarityScores', 'rb') as ss:
+""" Z SCORE SS
+for i in range(len(ss)):
+    mean = np.mean(ss[i])
+    std = np.std(ss[i])
+    ss[i] = (ss[i] - mean) / std
+"""
+
+
+with open('./pickles/jaccardOverTimeData/similarityScores', 'rb') as ss:
     ss = pickle.load(ss)
-with open('./pickles/euclidianOverTimeData/timeAxis', 'rb') as ta:
+with open('./pickles/jaccardOverTimeData/timeAxis', 'rb') as ta:
     ta = pickle.load(ta)
 
-plotter(ta, ss, start=ta[0], end=ta[-2])
+plotter(ta, ss, start="2016-05-26", end="2016-06-03")

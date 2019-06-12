@@ -35,8 +35,10 @@ def caseFormat(df):
         rowTime = row['Date_Time']
         rowType = row['Type']
         rowLoc = row['Location']
+        rowComp = row['Component']
+        rowDir = row['Direction']
 
-        caseList.append([rowTime, rowType, rowLoc])
+        caseList.append([rowTime, rowType, rowLoc, rowComp, rowDir])
     return caseList
 
 def printPretty(caseList):
@@ -101,9 +103,37 @@ with open('./pickles/highFreqCases', 'wb') as hfc:
     pickle.dump(highFreqCases, hfc)
 """
 
+""" REMOVE MAINTENANCE ALARMS
+with open('./pickles/alarms_combined_case_format', 'rb') as accf:
+    alarms_combined_case_format = pickle.load(accf)
+
+maintenanceTimestamps = [
+    ('2018-06-15 00:00:00', '2018-06-22 23:59:00'),
+    ('2018-07-26 10:18:00', '2018-08-08 14:30:00'),
+    ('2018-10-10 23:35:00', '2018-10-11 07:25:00'),
+    ('2018-02-15 13:49:00', '2018-02-15 13:58:00'),
+    ('2017-01-10 11:37:00', '2017-01-10 12:37:00'),
+    ('2018-03-21 11:22:00', '2018-04-23 15:32:00')
+]
+
+filtered_accf = []
+
+for alarm in alarms_combined_case_format:
+    is_maintenance = False
+    for timeInterval in maintenanceTimestamps:
+        start = pd.Timestamp(timeInterval[0])
+        end = pd.Timestamp(timeInterval[1])
+        if alarm[0] > start and alarm[0] < end:
+            is_maintenance = True
+    
+    if not is_maintenance:
+        filtered_accf.append(alarm)
+
+with open('./pickles/filtered_accf', 'wb') as faccf:
+    pickle.dump(filtered_accf, faccf)
+"""
 
 with open('./pickles/caseBase', 'rb') as cb:
     caseBase = pickle.load(cb)
 
-for alarm in caseBase[-1]:
-    print(alarm)
+print(caseBase[0][-1])

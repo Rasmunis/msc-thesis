@@ -33,6 +33,16 @@ def getComponent(alarm, stations, location=None):
             for switch in stationSwitches:
                 if switch in alarmTag:
                     component = switch
+        if location == "KLÆBU" and component == None: # KLÆBU HAS SOME SPECIAL CASE STUFF GOING ON
+            translation = {
+                'MOHOLT': 'MO1',
+                'TILLER': 'TI1',
+                'HUSEBY2': 'H2',
+                'GIMSE': 'GI1',
+            }
+            for key in translation:
+                if key in alarmTag:
+                    component = translation[key]
     
     return component
 

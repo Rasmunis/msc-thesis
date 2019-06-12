@@ -34,8 +34,8 @@ def jaccardSimilarity(c1, c2):
 def euclidianDist(c1, c2):
     return np.linalg.norm(np.array(alarmTypeProportion(c1, alarmTypes)) - np.array(alarmTypeProportion(c2, alarmTypes)))
 
-def euclidianDistZeroToOne(c1, c2):
-    return np.linalg.norm(np.sqrt((np.array(alarmTypeProportion(c1, alarmTypes)) - np.array(alarmTypeProportion(c2, alarmTypes)))**2))
+def euclidianDistScalar(c1, c2):
+    return np.sqrt(sum((np.array(alarmTypeProportion(c1, alarmTypes)) - np.array(alarmTypeProportion(c2, alarmTypes)))**2))
 
 def editDist(c1, c2):
     w = {}
