@@ -64,7 +64,7 @@ with open('./pickles/df_alarms_cleaned', 'rb') as dfac:
 
 countDict = locationCounter(caseBase[4], gridGraph.stations, gridGraph.connections, 4)
 
-#caseFollowUp = caseFormat(df_alarms_cleaned[(df_alarms_cleaned['Date_Time'] > caseBase[4][-1][0]) & (df_alarms_cleaned['Date_Time'] < pd.Timestamp('2016-05-27 21:13:00'))]) #FOLLOW
+#caseFollowUp = caseFormat(df_alarms_cleaned[(df_alarms_cleaned['Date_Time'] > caseBase[4][-1][0]) & (df_alarms_cleaned['Date_Time'] < pd.Timestamp('2016-06-01 20:24:00'))]) #FOLLOW
 
 #countDictFollowing = locationCounter(caseFollowUp, gridGraph.stations, gridGraph.connections, 4) # FOLLOW
 
@@ -87,9 +87,9 @@ objects = [x[0] for x in sorted_x]
 y_pos = np.arange(len(objects))
 performance = [x[1] for x in sorted_x]
 
-plt.barh(y_pos[-5:], performance[-5:], align='center', alpha=0.5)
-plt.yticks(y_pos[-5:], objects[-5:])
-plt.gca().get_yticklabels()[-2].set_color("red")
+plt.barh(y_pos[-10:], performance[-10:], align='center', alpha=0.5)
+plt.yticks(y_pos[-10:], objects[-10:])
+plt.gca().get_yticklabels()[-7].set_color("red")
 plt.xlabel('No. Alarms')
 plt.title('2016-05-27')
 

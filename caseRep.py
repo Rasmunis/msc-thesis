@@ -3,6 +3,7 @@ from sklearn.metrics import jaccard_similarity_score
 import numpy as np
 from scipy.spatial.distance import euclidean
 import pandas as pd
+from math import sqrt
 
 def alarmTypeBinary(alarmSet, alarmTypes):
     binaries = [0]*len(alarmTypes)
@@ -34,14 +35,24 @@ def jaccardSimilarity(c1, c2):
 def euclidianDist(c1, c2):
     return np.linalg.norm(np.array(alarmTypeProportion(c1, alarmTypes)) - np.array(alarmTypeProportion(c2, alarmTypes)))
 
-def euclidianDistScalar(c1, c2):
-    return np.sqrt(sum((np.array(alarmTypeProportion(c1, alarmTypes)) - np.array(alarmTypeProportion(c2, alarmTypes)))**2))
+def euclidianDistWeighted(c1, c2):
+    c1prop = alarmTypeProportion(c1, alarmTypes)
+    c2prop = alarmTypeProportion(c2, alarmTypes)
+    important = ['BRTUTE', 'DIFFUT', 'DISTUT']
+    sum = 0
+    for i, type in enumerate(alarmTypes):
+        if type in important:
+            sum += (c1prop[i] - c2prop[i])**2*2
+        else:
+            sum += (c1prop[i] - c2prop[i])**2
+    return sqrt(sum)
 
 def editDist(c1, c2):
     w = {}
 
-    for a in (c2):
+    for a in (c1):
         w[a[1]] = (w.get(a[1], 1)**-1 + 1)**-1
+    
 
     m = len(c1) + 1
     n = len(c2) + 1
@@ -65,7 +76,7 @@ def editDist(c1, c2):
                            r[i, j-1] + w.get(f, 1),
                            r[i-1, j-1] + k[i][j]
                            ])
-    return r[-1][-1]/m
+    return r[-1][-1]/n
 
 
 """ CASE BASE AND ALARMS WITH JACCARD
